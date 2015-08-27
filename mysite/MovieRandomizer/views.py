@@ -44,6 +44,7 @@ def home(request):
         x = file.readline()
         file.close()
         if x < str(datetime.datetime.now().date()) and datetime.datetime.now().isoweekday() == 5:
+            
             file = open('getData.txt', 'w')
             file.write(str(datetime.datetime.now().date()))
             getMovies()
@@ -54,7 +55,8 @@ def home(request):
         file.write(str(datetime.datetime.now().date()))
         getMovies()
         print "new"
-    return HttpResponse("HI")
+    movies = Movie.objects.all()
+    return render(request, 'MovieRandomizer/home.html', {'movies':movies})
 
 # Create your views here.
 
@@ -91,6 +93,7 @@ def getMovies():
         tempMovie.save()
 
 #print movieDescr
+
 
 
 
