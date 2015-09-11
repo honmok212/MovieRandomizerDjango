@@ -43,16 +43,23 @@ def home(request):
         file = open('getData.txt', 'r')
         x = file.readline()
         file.close()
-        if x < str(datetime.datetime.now().date()) and datetime.datetime.now().isoweekday() == 5:
+        newDate = x.split('-')
+        print int(newDate[0])
+        print newDate
+        lastDate = datetime.datetime(int(newDate[0]), int(newDate[1]), int(newDate[2]))
+        if ((datetime.datetime.now() - lastDate).days) >= 7:
             
             file = open('getData.txt', 'w')
             file.write(str(datetime.datetime.now().date()))
+            Movie.objects.all().delete()
             getMovies()
             print "redid"
-        print "did nothing"
+        else:
+            print "did nothing"
     else:
         file = open('getData.txt', 'w')
         file.write(str(datetime.datetime.now().date()))
+        Movie.objects.all().delete()
         getMovies()
         print "new"
     movies = Movie.objects.all()
