@@ -1,2 +1,4 @@
 #Python compilation files
 *.pyc
+
+*.swp
