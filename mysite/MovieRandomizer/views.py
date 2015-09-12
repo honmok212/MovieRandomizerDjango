@@ -101,6 +101,11 @@ def getMovies():
 
 #print movieDescr
 
+def getRandomMovie(request):
+    randMovie = Movie.objects.order_by('?').first() # generate random Movie object
+    context = {'randMovie': randMovie}
+    return render(request, 'MovieRandomizer/rand.html', context)
+
 
 
 
